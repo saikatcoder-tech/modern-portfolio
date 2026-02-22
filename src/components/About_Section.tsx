@@ -86,11 +86,11 @@ const AboutSection = () => {
           {nodes.map((node, i) => (
             <motion.div
               key={node.id}
-              className="absolute cursor-pointer"
+              className="absolute cursor-pointer -translate-x-1/2 -translate-y-1/2"
               style={{
                 left: `${node.x}%`,
                 top: `${node.y}%`,
-                transform: "translate(-50%, -50%)",
+          
               }}
               initial={{ opacity: 0, scale: 0 }}
               whileInView={{ opacity: 1, scale: 1 }}
