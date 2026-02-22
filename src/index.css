@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+
+/* Neon Glow Text */
+.neon-text {
+  color: #00f5ff;
+  text-shadow:
+    0 0 5px #00f5ff,
+    0 0 10px #00f5ff,
+    0 0 20px #00f5ff,
+    0 0 40px rgba(0, 245, 255, 0.5);
+}
+
+/* Glass Panel */
+.glass-nav {
+  background: rgba(10, 15, 25, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(0, 245, 255, 0.15);
+}
+
+@keyframes cursorBlink {
+  0%, 50% {
+    opacity: 1;
+  }
+  0%, 40% {
+    opacity: 0;
+  }
+}
+
+@keyframes sunPulse {
+  0% {
+    box-shadow: 0 0 20px rgba(0,229,255,0.4),
+                0 0 40px rgba(0,229,255,0.2);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(0,229,255,0.9),
+                0 0 100px rgba(0,229,255,0.6);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(0,229,255,0.4),
+                0 0 40px rgba(0,229,255,0.2);
+  }
+}
+
+.sun-pulse {
+  animation: sunPulse 3s ease-in-out infinite;
+}
+
+.cursor-blink {
+  animation: cursorBlink 1s infinite;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.75) 70%
+  );
+  z-index: -6;
+  pointer-events: none;
+}
+
+
+/* grid  */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* floating japanese text  */
+.japanese-layer::before,
+.japanese-layer::after {
+  content: "ネクサス デザイン フルスタック 未来 創造 技術";
+  position: fixed;
+  writing-mode: vertical-rl;
+  font-size: 14px;
+  letter-spacing: 6px;
+  color: rgba(0,255,255,0.15);
+  animation: floatText 25s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.japanese-layer::before {
+  left: 5%;
+  top: 20%;
+}
+
+.japanese-layer::after {
+  right: 8%;
+  top: 40%;
+  animation-duration: 35s;
+}
+
+@keyframes floatText {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-200px); }
+}
+
+
+/* mouse glow effect */
+.cursor-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0,255,255,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* ball follow  */
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+
+  background: linear-gradient(45deg, #00f3ff, #bc13fe);
+  box-shadow:
+    0 0 8px #00f3ff,
+    0 0 20px #bc13fe,
+    0 0 40px #ff0080;
+
+  transform: translate(0, 0);
+}
+
+
