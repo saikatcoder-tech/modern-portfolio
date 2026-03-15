@@ -1,11 +1,18 @@
 @import "tailwindcss";
 
+html {
+  background-color: #050510;  
+}
+
 html, body {
   overflow-x: hidden;
   max-width: 100vw;
   min-height: 100%;
-  background-color: #050510;
 }
+
+/* #root {
+  background-color: #050510;
+} */
 
 
 /* Neon Glow Text */
