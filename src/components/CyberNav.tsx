@@ -22,7 +22,7 @@ const CyberNav = () => {
   useEffect(() => {
     const handleScroll = () => {
       const heroHeight = window.innerHeight;
-      setScrolled(window.scrollY > heroHeight - 80);
+      setScrolled(window.scrollY > heroHeight * 0.1);
     };
 
     window.addEventListener("scroll", handleScroll);

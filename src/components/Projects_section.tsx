@@ -7,7 +7,6 @@ import projectQuantum from "../assets/project-quantum.jpg";
 import projectCommerce from "../assets/project-commerce.jpg";
 import projectEngine from "../assets/project-engine.jpg";
 import projectSynapse from "../assets/project-synapse.jpg";
-import { Mouse } from "lucide-react";
 
 const projects = [
   {
@@ -147,7 +146,7 @@ const ProjectsSection = () => {
                       style={{ backgroundColor: `hsl(${project.color})` }}
                     />
 
-                    <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#0b1224] to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 h-20 bg-linear-to-t from-[#0b1224] to-transparent" />
 
                     <div
                       className="absolute top-1/3 left-0 right-0 h-px opacity-0 group-hover:opacity-80 transition-all duration-200"

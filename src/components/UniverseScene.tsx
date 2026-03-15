@@ -120,14 +120,14 @@ function SceneContent() {
       <group ref={groupRef} position={[0, 0, -5]}>
         <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
 
-          <Icosahedron ref={meshRef} args={[3, 4]} position={[0, 0, 0]}>
+          <Icosahedron ref={meshRef} args={[2, 3]} position={[0, 0, 0]}>
             <MeshDistortMaterial
               color="#00f3ff"
               emissive="#00f3ff"
-              emissiveIntensity={0.5}
+              emissiveIntensity={0.7}
               wireframe
               distort={0.2}
-              speed={2}
+              speed={3}
             />
           </Icosahedron> 
           

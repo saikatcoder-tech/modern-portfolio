@@ -54,7 +54,7 @@ const AboutSection = () => {
         </motion.div>
 
         <motion.div
-          className="relative w-full aspect-[16/9] max-h-[520px]"
+          className="relative w-full aspect-video max-h-130"
           style={{ y: parallaxY }}
         >
 

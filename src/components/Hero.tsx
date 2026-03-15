@@ -92,7 +92,7 @@ export function Hero() {
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className="w-[2px] h-10 bg-cyan-400"
+            className="w-0.5 h-10 bg-cyan-400"
             style={{ opacity: 1 - i * 0.15 }}
           />
         ))}

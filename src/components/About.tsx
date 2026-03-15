@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import React from "react";
 import { Code, Layers, Zap } from "lucide-react";
 import GlassCard from "./GlassCard";
 
