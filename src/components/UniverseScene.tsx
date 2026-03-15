@@ -1,7 +1,7 @@
 import { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars, Float, MeshDistortMaterial, Sphere, Icosahedron } from "@react-three/drei";
-import { EffectComposer, Bloom, ChromaticAberration, Noise } from "@react-three/postprocessing";
+import { EffectComposer, Bloom, ChromaticAberration } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import * as THREE from "three";
 
@@ -45,7 +45,7 @@ function Particles() {
     return temp;
   }, [count]);
 
-  useFrame((state) => {
+  useFrame(() => {
     particles.forEach((particle, i) => {
       let { t, factor, speed, xFactor, yFactor, zFactor } = particle;
       t = particle.t += speed / 2;
