@@ -40,7 +40,7 @@ const App = () => {
 
   return (
     
-    <div style={{ height: "300vh" }}>
+    <div>
       <UniverseScene />
 
       {/* Dark overlay */}

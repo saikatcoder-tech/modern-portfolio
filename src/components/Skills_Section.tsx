@@ -11,7 +11,8 @@ const skills = [
   { name: "WebGL", orbit: 3, angle: 310, speed: 45, level: 82 },
 ];
 
-const orbitRadii = [120, 200, 280];
+const isMobile = window.innerWidth < 768;
+const orbitRadii = isMobile ? [85, 135, 185] : [120, 200, 280];
 
 export default function SkillsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -67,7 +68,10 @@ export default function SkillsSection() {
           className={`relative mx-auto transition-opacity duration-1000 ${
             visible ? "opacity-100" : "opacity-0"
           }`}
-          style={{ width: 600, height: 600 }}
+          style={{
+            width: Math.min(600, window.innerWidth - 48),
+            height: Math.min(600, window.innerWidth - 48),
+          }}
         >
           {/* Pulsing Center Sun */}
           <div
@@ -95,12 +99,11 @@ export default function SkillsSection() {
 
           {/* Skills */}
           {skills.map((skill) => {
+            const containerSize = Math.min(600, window.innerWidth - 48);
             const radius = orbitRadii[skill.orbit - 1];
-            const angle =
-              (skill.angle + time * (360 / skill.speed)) *
-              (Math.PI / 180);
-            const x = 300 + Math.cos(angle) * radius;
-            const y = 300 + Math.sin(angle) * radius;
+            const angle = (skill.angle + time * (360 / skill.speed)) * (Math.PI / 180);
+            const x = containerSize / 2 + Math.cos(angle) * radius;
+            const y = containerSize / 2 + Math.sin(angle) * radius;
 
             return (
               <div
@@ -113,16 +116,16 @@ export default function SkillsSection() {
                 }}
               >
                 <div
-                  className="relative px-4 py-2 rounded-lg
-                             bg-[rgba(10,18,32,0.75)]
+                  className={`relative rounded-lg ${isMobile ? 'px-2 py-1' : 'px-4 py-2'} bg-[rgba(10,18,32,0.75)]
                              backdrop-blur-xl
                              border border-cyan-400/20
                              transition-all duration-300
                              group-hover:border-cyan-400/60
                              group-hover:shadow-[0_0_20px_rgba(0,229,255,0.5)]
-                             group-hover:-translate-y-1"
+                             group-hover:-translate-y-1`}
+                             
                 >
-                  <span className="text-xs tracking-wider text-cyan-300 group-hover:text-white transition-colors">
+                  <span className={`tracking-wider text-cyan-300 group-hover:text-white transition-colors ${isMobile ? 'text-[10px]' : 'text-xs'}`}>
                     {skill.name}
                   </span>
 

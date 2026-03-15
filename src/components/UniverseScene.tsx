@@ -27,19 +27,21 @@ function OrbitingPlanet({ radius, speed, color, size, offset = 0 }: { radius: nu
 }
 
 function Particles() {
+  const isMobile = window.innerWidth < 768;
+  const spread = isMobile ? 30 : 50;
   const count = 700;
   const mesh = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
-  
+
   const particles = useMemo(() => {
     const temp = [];
     for (let i = 0; i < count; i++) {
       const t = Math.random() * 100;
       const factor = 20 + Math.random() * 100;
       const speed = 0.01 + Math.random() / 200;
-      const xFactor = -50 + Math.random() * 100;
-      const yFactor = -50 + Math.random() * 100;
-      const zFactor = -50 + Math.random() * 100;
+      const xFactor = -spread + Math.random() * spread * 2;
+      const yFactor = -spread + Math.random() * spread * 2;
+      const zFactor = -spread + Math.random() * spread * 2;
       temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0 });
     }
     return temp;
@@ -52,7 +54,7 @@ function Particles() {
       const a = Math.cos(t) + Math.sin(t * 1) / 10;
       const b = Math.sin(t) + Math.cos(t * 2) / 10;
       const s = Math.cos(t);
-      
+
       dummy.position.set(
         (particle.mx / 10) * a + xFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 1) * factor) / 10,
         (particle.my / 10) * b + yFactor + Math.sin((t / 10) * factor) + (Math.sin(t * 2) * factor) / 10,
@@ -79,7 +81,8 @@ function Particles() {
 function SceneContent() {
   const meshRef = useRef<THREE.Mesh>(null);
   const ringRef = useRef<THREE.Mesh>(null);
-  const groupRef = useRef<THREE.Group>(null)
+  const groupRef = useRef<THREE.Group>(null);
+  const isMobile = window.innerWidth < 768; // ✅ here, outside useFrame
   const [scrollOffset, setScrollOffset] = useState(0);
 
   useEffect(() => {
@@ -97,29 +100,28 @@ function SceneContent() {
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.002;
       meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
-    
-      
     }
     if (ringRef.current) {
       ringRef.current.rotation.z -= 0.001;
       ringRef.current.rotation.x = Math.PI / 2.2 + Math.sin(state.clock.elapsedTime * 0.2) * 0.05;
     }
     if (groupRef.current) {
-  groupRef.current.position.z = -10 + scrollOffset * 10;
-  groupRef.current.position.y = -scrollOffset * 5;
-}
-    
-    // Camera parallax + scroll
-    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, state.pointer.x * 1.5, 0.1);
-    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, (state.pointer.y * 1.5) - (scrollOffset * 4), 0.1);
+      groupRef.current.position.z = -10 + scrollOffset * 10;
+      groupRef.current.position.y = isMobile ? 0 : -scrollOffset * 5;
+    }
+
+    // ✅ Reduced parallax on mobile
+    const parallax = isMobile ? 0 : 1.5;
+    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, state.pointer.x * parallax, 0.1);
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, (state.pointer.y * parallax) - (isMobile ? 0 : scrollOffset * 4), 0.1);
     state.camera.lookAt(0, 0, -5);
   });
 
   return (
     <>
-      <group ref={groupRef} position={[0, 0, -5]}>
+      {/* ✅ scale prop is HERE in JSX, not inside useFrame */}
+      <group ref={groupRef} position={[0, isMobile ? -1 : 0, -5]} scale={isMobile ? 0.55 : 1}>
         <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-
           <Icosahedron ref={meshRef} args={[2, 3]} position={[0, 0, 0]}>
             <MeshDistortMaterial
               color="#00f3ff"
@@ -129,13 +131,11 @@ function SceneContent() {
               distort={0.2}
               speed={3}
             />
-          </Icosahedron> 
-          
-           <Sphere args={[1.5, 32, 32]}>
+          </Icosahedron>
+
+          <Sphere args={[1.5, 32, 32]}>
             <meshBasicMaterial color="#002244" transparent opacity={0.8} />
           </Sphere>
-
-          
 
           <mesh ref={ringRef}>
             <torusGeometry args={[3.5, 0.02, 16, 100]} />
@@ -153,28 +153,28 @@ function SceneContent() {
 }
 
 export function UniverseScene() {
+  const isMobile = window.innerWidth < 768;
   return (
     <div className="fixed inset-0 -z-10 bg-[#050510]">
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }} dpr={[1, 1.5]}>
+      <Canvas camera={{ position: [0, 0, 5], fov: isMobile ? 90 : 60 }} dpr={[1, 1.5]}>
         <color attach="background" args={["#050510"]} />
         <fog attach="fog" args={["#050510", 10, 50]} />
-        
+
         <ambientLight intensity={0.4} />
         <pointLight position={[10, 10, 10]} intensity={2} color="#00f3ff" />
-        
+
         <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={2} />
-        
+
         <SceneContent />
 
         <EffectComposer>
           <Bloom luminanceThreshold={0.7} mipmapBlur intensity={0.3} />
-          <ChromaticAberration 
-            blendFunction={BlendFunction.NORMAL} 
+          <ChromaticAberration
+            blendFunction={BlendFunction.NORMAL}
             offset={new THREE.Vector2(0.001, 0.001)}
             radialModulation={false}
             modulationOffset={0}
           />
-          {/* <Noise opacity={0.03} /> */}
         </EffectComposer>
       </Canvas>
     </div>
