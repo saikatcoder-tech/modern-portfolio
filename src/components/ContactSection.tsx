@@ -41,6 +41,13 @@ export default function ContactSection() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupType, setPopupType] = useState<"success" | "error" | null>(null);
 
+  // ✅ NEW: error state
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    message: false,
+  });
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -55,23 +62,46 @@ export default function ContactSection() {
     return () => observer.disconnect();
   }, []);
 
-  // ✅ FIXED HANDLE SUBMIT
+  // ✅ FIXED HANDLE SUBMIT + VALIDATION
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // 🔴 VALIDATION
+    if (!form.name || !form.email || !form.message) {
+      setErrors({
+        name: !form.name,
+        email: !form.email,
+        message: !form.message,
+      });
+
+      setPopupType("error");
+      setShowPopup(true);
+
+      // ✅ UPDATED MESSAGE
+       setStatus("> input_error: required_fields_missing");
+      
+
+      setTimeout(() => {
+        setShowPopup(false);
+        setPopupType(null);
+      }, 2500);
+
+      return;
+    }
 
     setLoading(true);
     setStatus("> transmitting...");
 
     emailjs
       .send(
-        "service_gvh6yq",      // 🔴 replace
-        "template_8dx6xbn",     // 🔴 replace
+        "service_gvh6yq",
+        "template_8dx6xbn",
         {
           from_name: form.name,
           from_email: form.email,
           message: form.message,
         },
-        "-AysFJ5BXQWqFG48c"       // 🔴 replace
+        "-AysFJ5BXQWqFG48c"
       )
       .then(() => {
         setLoading(false);
@@ -86,6 +116,9 @@ export default function ContactSection() {
         }, 3000);
 
         setForm({ name: "", email: "", message: "" });
+
+        // ✅ reset errors
+        setErrors({ name: false, email: false, message: false });
       })
       .catch(() => {
         setLoading(false);
@@ -182,9 +215,22 @@ export default function ContactSection() {
                 type="text"
                 placeholder=">> enter_name"
                 value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full px-4 py-3 rounded-md bg-[#0b1224] outline-none"
-                style={{ border: "1px solid rgba(0,229,255,0.15)", color: "#e6f7ff" }}
+                onChange={(e) => {
+                  setForm({ ...form, name: e.target.value });
+                  setErrors({ ...errors, name: false });
+                }}
+                className={`w-full px-4 py-3 rounded-md bg-[#0b1224] outline-none transition-all duration-200 ${
+                  errors.name ? "glitch-error" : ""
+                }`}
+                style={{
+                  border: errors.name
+                    ? "1px solid rgba(255,80,80,0.8)"
+                    : "1px solid rgba(0,229,255,0.15)",
+                  color: "#e6f7ff",
+                  boxShadow: errors.name
+                    ? "0 0 12px rgba(255,80,80,0.6)"
+                    : "none",
+                }}
               />
             </div>
 
@@ -197,9 +243,22 @@ export default function ContactSection() {
                 type="email"
                 placeholder=">> your@signal.freq"
                 value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full px-4 py-3 rounded-md bg-[#0b1224] outline-none"
-                style={{ border: "1px solid rgba(0,229,255,0.15)", color: "#e6f7ff" }}
+                onChange={(e) => {
+                  setForm({ ...form, email: e.target.value });
+                  setErrors({ ...errors, email: false });
+                }}
+                className={`w-full px-4 py-3 rounded-md bg-[#0b1224] outline-none transition-all duration-200 ${
+                  errors.email ? "glitch-error" : ""
+                }`}
+                style={{
+                  border: errors.email
+                    ? "1px solid rgba(255,80,80,0.8)"
+                    : "1px solid rgba(0,229,255,0.15)",
+                  color: "#e6f7ff",
+                  boxShadow: errors.email
+                    ? "0 0 12px rgba(255,80,80,0.6)"
+                    : "none",
+                }}
               />
             </div>
 
@@ -212,12 +271,22 @@ export default function ContactSection() {
                 rows={5}
                 placeholder=">> begin_message..."
                 value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="w-full px-4 py-3 rounded-md resize-none bg-[#0b1224] outline-none"
+                onChange={(e) => {
+                  setForm({ ...form, message: e.target.value });
+                  setErrors({ ...errors, message: false });
+                }}
+                className={`w-full px-4 py-3 rounded-md resize-none bg-[#0b1224] outline-none ${
+                  errors.message ? "glitch-error" : ""
+                }`}
                 style={{
-                  border: "1px solid rgba(0,229,255,0.15)",
+                  border: errors.message
+                    ? "1px solid rgba(255,80,80,0.8)"
+                    : "1px solid rgba(0,229,255,0.15)",
                   color: "#e6f7ff",
                   fontFamily: "'Share Tech Mono', monospace",
+                  boxShadow: errors.message
+                    ? "0 0 12px rgba(255,80,80,0.6)"
+                    : "none",
                 }}
               />
             </div>
@@ -300,13 +369,14 @@ export default function ContactSection() {
             ) : (
               <>
                 <span>⚠</span>
-                <span>TRANSMISSION FAILED</span>
+                {status.includes("required_fields")
+                  ? "INPUT ERROR: FILL REQUIRED FIELDS"
+                  : "TRANSMISSION FAILED"}
               </>
             )}
           </div>
         </div>
       )}
-
     </section>
   );
 }
