@@ -91,7 +91,7 @@ const ProjectsSection = () => {
   const [activeId, setActiveId] = useState<number | null>(null);
 
   return (
-    <section className="relative min-h-screen pt-32 px-6" id="projects">
+    <section className="relative min-h-screen pt-15 md:pt-32 px-6" id="projects">
       <div className="relative z-10 w-full max-w-6xl mx-auto">
 
         <motion.div
