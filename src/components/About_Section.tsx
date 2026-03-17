@@ -25,9 +25,11 @@ const AboutSection = () => {
 
   const parallaxY = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
+  
+
   return (
     <section className="section-container" id="about" ref={sectionRef}>
-      <div className="relative z-10 w-full max-w-6xl mx-auto">
+      <div className="mt-20 relative z-10 w-full max-w-6xl mx-auto">
 
         {/* Title */}
         <motion.div
@@ -54,7 +56,7 @@ const AboutSection = () => {
         </motion.div>
 
         <motion.div
-          className="relative w-full aspect-video max-h-130"
+          className="relative -mt-10 md:-mt-20 w-full aspect-video max-h-130"
           style={{ y: parallaxY }}
         >
 
@@ -83,7 +85,12 @@ const AboutSection = () => {
           </svg>
 
           {/* Nodes */}
-          {nodes.map((node, i) => (
+          {nodes.map((node, i) => {
+            const isLeft = node.x < 30;
+            const isRight = node.x > 70;
+          
+          return (
+            
             <motion.div
               key={node.id}
               className="absolute cursor-pointer -translate-x-1/2 -translate-y-1/2"
@@ -105,7 +112,7 @@ const AboutSection = () => {
 
               {/* Core dot */}
               <div
-                className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 ${
                   active === node.id
                     ? "bg-cyan-300 neon-glow scale-150"
                     : "bg-cyan-400/70"
@@ -114,7 +121,7 @@ const AboutSection = () => {
 
               {/* Label */}
               <div
-                className={`absolute left-1/2 -translate-x-1/2 mt-4 whitespace-nowrap font-display text-xs tracking-wider transition-all duration-300 ${
+                className={`absolute left-1/2 -translate-x-1/2 mt-4 whitespace-nowrap font-display text-[0.65rem] md:text-xs tracking-wider transition-all duration-300 ${
                   active === node.id
                     ? "text-cyan-300 neon-text"
                     : "text-slate-400"
@@ -126,17 +133,22 @@ const AboutSection = () => {
               {/* Tooltip */}
               {active === node.id && (
                 <motion.div
-                  className="absolute left-1/2 -translate-x-1/2 bottom-full mb-8 w-60 glass-panel-accent p-5 text-center border border-cyan-400/20 backdrop-blur-xl"
-                  initial={{ opacity: 0, y: 10, rotateX: -15 }}
-                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                   className={`absolute bottom-full mb-8
+                    ${isLeft ? "left-0 -translate-x-10" : ""}
+                    ${isRight ? "right-0 translate-x-10" : ""}
+                    ${!isLeft && !isRight ? "left-1/2 -translate-x-1/2" : ""}
+                    max-w-[90vw] w-max
+                    px-3 py-5
+                    glass-panel-accent text-center
+                    border border-cyan-400/20 backdrop-blur-xl`}
                 >
-                  <p className="font-body text-sm text-slate-300 leading-relaxed">
+                  <p className="font-body text-xs md:text-sm text-slate-300 leading-relaxed">
                     {node.desc}
                   </p>
                 </motion.div>
               )}
             </motion.div>
-          ))}
+          )})}
         </motion.div>
       </div>
     </section>

@@ -187,7 +187,7 @@ export default function ContactSection() {
             <div style={{ width: 10, height: 10, borderRadius: "50%", background: "hsl(45 100% 55%)", marginLeft: 6 }} />
             <div style={{ width: 10, height: 10, borderRadius: "50%", background: "hsl(140 70% 45%)", marginLeft: 6 }} />
 
-            <span className="mono-text text-[10px] ml-3" style={{ color: "rgba(255,255,255,0.5)" }}>
+            <span className="mono-text text-[11px] ml-3" style={{ color: "rgba(255,255,255,0.5)" }}>
               ~/transmission_terminal
             </span>
 
@@ -208,7 +208,7 @@ export default function ContactSection() {
 
             {/* NAME */}
             <div>
-              <label className="mono-text text-[10px] block mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <label className="mono-text text-[11px] block mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
                 <span style={{ color: "#00e5ff" }}>$</span> set IDENTIFIER
               </label>
               <input
@@ -236,7 +236,7 @@ export default function ContactSection() {
 
             {/* EMAIL */}
             <div>
-              <label className="mono-text text-[10px] block mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <label className="mono-text text-[11px] block mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
                 <span style={{ color: "#00e5ff" }}>$</span> set FREQUENCY
               </label>
               <input
@@ -264,7 +264,7 @@ export default function ContactSection() {
 
             {/* MESSAGE */}
             <div>
-              <label className="mono-text text-[10px] block mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <label className="mono-text text-[11px] block mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
                 <span style={{ color: "#00e5ff" }}>$</span> compose TRANSMISSION
               </label>
               <textarea

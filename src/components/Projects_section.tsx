@@ -91,7 +91,7 @@ const ProjectsSection = () => {
   const [activeId, setActiveId] = useState<number | null>(null);
 
   return (
-    <section className="relative min-h-screen py-32 px-6" id="projects">
+    <section className="relative min-h-screen pt-32 px-6" id="projects">
       <div className="relative z-10 w-full max-w-6xl mx-auto">
 
         <motion.div
@@ -169,52 +169,52 @@ const ProjectsSection = () => {
 
                   
                     <motion.div
-  initial={false}
-  animate={{
-    opacity: activeId === project.id ? 1 : 0,
-    y: activeId === project.id ? 0 : 20,
-  }}
-  transition={{ duration: 0.25, ease: "easeOut" }}
-  className="absolute inset-0 flex items-center justify-center gap-6 pointer-events-none"
->
-  {/* 🚀 LIVE */}
-  <a
-    href={project.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="pointer-events-auto group relative flex items-center gap-2 px-4 py-2
-    text-xs tracking-wide uppercase text-cyan-300
-    border border-cyan-400/30 rounded-full
-    bg-[#0b1224]/80 backdrop-blur-md
-    transition-all duration-300 hover:scale-105 hover:border-cyan-400"
-  >
-    <Rocket size={14} />
-    <span>Launch</span>
+                    initial={false}
+                    animate={{
+                      opacity: activeId === project.id ? 1 : 0,
+                      y: activeId === project.id ? 0 : 20,
+                    }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className="absolute inset-0 flex items-center justify-center gap-6 pointer-events-none"
+                  >
+                    {/* 🚀 LIVE */}
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pointer-events-auto group relative flex items-center gap-2 px-4 py-2
+                      text-xs tracking-wide uppercase text-cyan-300
+                      border border-cyan-400/30 rounded-full
+                      bg-[#0b1224]/80 backdrop-blur-md
+                      transition-all duration-300 hover:scale-105 hover:border-cyan-400"
+                    >
+                      <Rocket size={14} />
+                      <span>Launch</span>
 
-    {/* glow */}
-    <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 
-    transition duration-300 blur-md bg-cyan-400/20" />
-  </a>
+                      {/* glow */}
+                      <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 
+                      transition duration-300 blur-md bg-cyan-400/20" />
+                    </a>
 
-  {/* 🧠 CODE */}
-  <a
-    href={project.github}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="pointer-events-auto group relative flex items-center gap-2 px-4 py-2
-    text-xs tracking-wide uppercase text-purple-300
-    border border-purple-400/30 rounded-full
-    bg-[#0b1224]/80 backdrop-blur-md
-    transition-all duration-300 hover:scale-105 hover:border-purple-400"
-  >
-    <Github size={14} />
-    <span>Source</span>
+                    {/* 🧠 CODE */}
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pointer-events-auto group relative flex items-center gap-2 px-4 py-2
+                      text-xs tracking-wide uppercase text-purple-300
+                      border border-purple-400/30 rounded-full
+                      bg-[#0b1224]/80 backdrop-blur-md
+                      transition-all duration-300 hover:scale-105 hover:border-purple-400"
+                    >
+                      <Github size={14} />
+                      <span>Source</span>
 
-    {/* glow */}
-    <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 
-    transition duration-300 blur-md bg-purple-400/20" />
-  </a>
-</motion.div>
+                      {/* glow */}
+                      <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 
+                      transition duration-300 blur-md bg-purple-400/20" />
+                    </a>
+                  </motion.div>
 
 
 
@@ -262,7 +262,7 @@ const ProjectsSection = () => {
                       {project.title}
                     </h3>
 
-                    <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+                    <p className="text-xs md:text-sm text-slate-400 mb-4 leading-relaxed">
                       {project.desc}
                     </p>
 
@@ -270,7 +270,7 @@ const ProjectsSection = () => {
                       {project.tech.map((t) => (
                         <span
                           key={t}
-                          className="text-[9px] tracking-wider uppercase px-3 py-1 rounded-full border transition-all duration-300"
+                          className="text-[7px] sm:text-[9px] tracking-wider uppercase px-3 py-1 rounded-full border transition-all duration-300"
                           style={{
                             borderColor: "rgba(255,255,255,0.08)",
                             color: "#8fb8ff",

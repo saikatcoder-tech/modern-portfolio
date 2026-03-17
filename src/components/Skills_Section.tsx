@@ -13,7 +13,7 @@ const skills = [
 ];
 
 const isMobile = window.innerWidth < 768;
-const orbitRadii = isMobile ? [85, 135, 185] : [120, 200, 280];
+const orbitRadii = isMobile ? [60, 120, 170] : [120, 200, 280];
 
 export default function SkillsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -45,7 +45,7 @@ export default function SkillsSection() {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative min-h-screen py-32 px-6"
+      className="relative min-h-screen pt-32 px-6"
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
@@ -117,16 +117,16 @@ export default function SkillsSection() {
                 }}
               >
                 <div
-                  className={`relative rounded-lg ${isMobile ? 'px-2 py-1' : 'px-4 py-2'} bg-[rgba(10,18,32,0.75)]
+                  className={`relative rounded-lg ${isMobile ? 'px-2 py-1' : 'px-6 py-3'} bg-[rgba(10,18,32,0.75)]
                              backdrop-blur-xl
                              border border-cyan-400/20
                              transition-all duration-300
                              group-hover:border-cyan-400/60
                              group-hover:shadow-[0_0_20px_rgba(0,229,255,0.5)]
-                             group-hover:-translate-y-1`}
+                             group-hover:-translate-y-1 flex`}
                              
                 >
-                  <span className={`tracking-wider text-cyan-300 group-hover:text-white transition-colors ${isMobile ? 'text-[10px]' : 'text-xs'}`}>
+                  <span className={`tracking-wider text-cyan-300 group-hover:text-white transition-colors ${isMobile ? 'text-[9px]' : 'text-xs'}`}>
                     {skill.name}
                   </span>
 

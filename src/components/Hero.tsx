@@ -7,7 +7,7 @@ export function Hero() {
   };
   
   return (
-    <section id="hero" className="relative flex flex-col items-center justify-center px-6 overflow-hidden" style={{ minHeight: '100svh' }}>
+    <section id="hero" className="relative mt-15 lg:mt-0 flex flex-col items-center justify-center px-6 overflow-hidden" style={{ minHeight: '100svh' }}>
 
       {/* Top Badge */}
       <motion.div
@@ -16,8 +16,8 @@ export function Hero() {
         transition={{ duration: 1 }}
         className="mb-8"
       >
-        <div className="px-6 py-2 rounded-full border border-cyan-400/40 bg-cyan-400/5 backdrop-blur-md">
-          <span className="text-cyan-400 tracking-[0.25em] text-sm font-semibold">
+        <div className="flex px-8 py-3 rounded-full border border-cyan-400/40 bg-cyan-400/5 backdrop-blur-md">
+          <span className="text-cyan-400 tracking-[0.25em] text-[10px] md:text-sm font-semibold">
             SYSTEM.INITIALIZED
           </span>
         </div>
@@ -59,7 +59,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 1 }}
-        className="mt-8 text-gray-400 text-center max-w-2xl text-lg md:text-xl"
+        className="mt-8 text-gray-400 text-center max-w-2xl text-md md:text-xl"
       >
         Building SaaS products, Integrating AI & Writing clean API's<br />
         Turning ideas into secure & scalable applications with Modern UI.
@@ -74,13 +74,13 @@ export function Hero() {
         className="mt-12 flex flex-col sm:flex-row gap-6"
       >
         <button onClick={() => handleClick("#projects")}
-          className="cursor-pointer px-8 py-4 border border-cyan-400/50 text-cyan-300 font-semibold tracking-wider rounded-md bg-cyan-400/5 backdrop-blur-md transition-all duration-300 hover:bg-cyan-400/10 hover:shadow-[0_0_25px_rgba(0,255,255,0.3)]"
+          className="text-sm md:text-lg cursor-pointer px-8 py-4 border border-cyan-400/50 text-cyan-300 font-semibold tracking-wider rounded-md bg-cyan-400/5 backdrop-blur-md transition-all duration-300 hover:bg-cyan-400/10 hover:shadow-[0_0_25px_rgba(0,255,255,0.3)]"
         >
           LOAD PROJECTS 
         </button>
 
         <button onClick={() => handleClick("#contact")}
-          className="cursor-pointer px-8 py-4 border border-gray-500/40 text-white font-semibold tracking-wider rounded-md transition-all duration-300 hover:border-pink-400 hover:shadow-[0_0_25px_rgba(255,0,255,0.3)]"
+          className="text-sm md:text-lg cursor-pointer px-8 py-4 border border-gray-500/40 text-white font-semibold tracking-wider rounded-md transition-all duration-300 hover:border-pink-400 hover:shadow-[0_0_25px_rgba(255,0,255,0.3)]"
         >
           INIT CONTACT
         </button>
