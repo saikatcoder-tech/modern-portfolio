@@ -5,10 +5,11 @@ const skills = [
   { name: "TypeScript", orbit: 2, angle: 120, speed: 35, level: 90 },
   { name: "Three.js", orbit: 1, angle: 180, speed: 25, level: 85 },
   { name: "Node.js", orbit: 2, angle: 250, speed: 35, level: 92 },
-  { name: "Python", orbit: 3, angle: 60, speed: 45, level: 88 },
-  { name: "Docker", orbit: 2, angle: 0, speed: 35, level: 80 },
-  { name: "AWS", orbit: 3, angle: 200, speed: 45, level: 75 },
-  { name: "WebGL", orbit: 3, angle: 310, speed: 45, level: 82 },
+  { name: "Tailwind", orbit: 3, angle: 60, speed: 45, level: 88 },
+  { name: "Javascript", orbit: 2, angle: 0, speed: 35, level: 80 },
+  { name: "Java", orbit: 3, angle: 210, speed: 45, level: 75 },
+  { name: "MongoDB", orbit: 3, angle: 130, speed: 45, level: 82 },
+  { name: "SQL", orbit: 3, angle: 330, speed: 45, level: 82 },
 ];
 
 const isMobile = window.innerWidth < 768;

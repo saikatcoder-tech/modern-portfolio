@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
+import { Rocket } from "lucide-react";
 
 const codeLines = [
   "> initializing secure channel...",
@@ -34,6 +36,11 @@ function TypingLine({ text, delay }: { text: string; delay: number }) {
 
 export default function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupType, setPopupType] = useState<"success" | "error" | null>(null);
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -48,10 +55,50 @@ export default function ContactSection() {
     return () => observer.disconnect();
   }, []);
 
+  // ✅ FIXED HANDLE SUBMIT
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Signal transmitted! (Demo only)");
-    setForm({ name: "", email: "", message: "" });
+
+    setLoading(true);
+    setStatus("> transmitting...");
+
+    emailjs
+      .send(
+        "service_gvh6yq",      // 🔴 replace
+        "template_8dx6xbn",     // 🔴 replace
+        {
+          from_name: form.name,
+          from_email: form.email,
+          message: form.message,
+        },
+        "-AysFJ5BXQWqFG48c"       // 🔴 replace
+      )
+      .then(() => {
+        setLoading(false);
+        setStatus("> transmission_successful ✓");
+
+        setPopupType("success");
+        setShowPopup(true);
+
+        setTimeout(() => {
+          setShowPopup(false);
+          setPopupType(null);
+        }, 3000);
+
+        setForm({ name: "", email: "", message: "" });
+      })
+      .catch(() => {
+        setLoading(false);
+        setStatus("> transmission_failed ✗");
+
+        setPopupType("error");
+        setShowPopup(true);
+
+        setTimeout(() => {
+          setShowPopup(false);
+          setPopupType(null);
+        }, 3000);
+      });
   };
 
   return (
@@ -107,26 +154,17 @@ export default function ContactSection() {
             <div style={{ width: 10, height: 10, borderRadius: "50%", background: "hsl(45 100% 55%)", marginLeft: 6 }} />
             <div style={{ width: 10, height: 10, borderRadius: "50%", background: "hsl(140 70% 45%)", marginLeft: 6 }} />
 
-            <span
-              className="mono-text text-[10px] ml-3"
-              style={{ color: "rgba(255,255,255,0.5)" }}
-            >
+            <span className="mono-text text-[10px] ml-3" style={{ color: "rgba(255,255,255,0.5)" }}>
               ~/transmission_terminal
             </span>
 
-            <span
-              className="mono-text text-[10px] ml-auto"
-              style={{ color: "rgba(0,229,255,0.4)" }}
-            >
+            <span className="mono-text text-[10px] ml-auto" style={{ color: "rgba(0,229,255,0.4)" }}>
               bash
             </span>
           </div>
 
           {/* Boot Sequence */}
-          <div
-            className="px-6 pt-4 pb-3 space-y-1"
-            style={{ borderBottom: "1px solid rgba(0,229,255,0.08)" }}
-          >
+          <div className="px-6 pt-4 pb-3 space-y-1" style={{ borderBottom: "1px solid rgba(0,229,255,0.08)" }}>
             {visible &&
               codeLines.map((line, i) => (
                 <TypingLine key={i} text={line} delay={i * 600} />
@@ -137,10 +175,7 @@ export default function ContactSection() {
 
             {/* NAME */}
             <div>
-              <label
-                className="mono-text text-[10px] block mb-2"
-                style={{ color: "rgba(255,255,255,0.6)" }}
-              >
+              <label className="mono-text text-[10px] block mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
                 <span style={{ color: "#00e5ff" }}>$</span> set IDENTIFIER
               </label>
               <input
@@ -149,19 +184,13 @@ export default function ContactSection() {
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="w-full px-4 py-3 rounded-md bg-[#0b1224] outline-none"
-                style={{
-                  border: "1px solid rgba(0,229,255,0.15)",
-                  color: "#e6f7ff",
-                }}
+                style={{ border: "1px solid rgba(0,229,255,0.15)", color: "#e6f7ff" }}
               />
             </div>
 
             {/* EMAIL */}
             <div>
-              <label
-                className="mono-text text-[10px] block mb-2"
-                style={{ color: "rgba(255,255,255,0.6)" }}
-              >
+              <label className="mono-text text-[10px] block mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
                 <span style={{ color: "#00e5ff" }}>$</span> set FREQUENCY
               </label>
               <input
@@ -170,19 +199,13 @@ export default function ContactSection() {
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="w-full px-4 py-3 rounded-md bg-[#0b1224] outline-none"
-                style={{
-                  border: "1px solid rgba(0,229,255,0.15)",
-                  color: "#e6f7ff",
-                }}
+                style={{ border: "1px solid rgba(0,229,255,0.15)", color: "#e6f7ff" }}
               />
             </div>
 
             {/* MESSAGE */}
             <div>
-              <label
-                className="mono-text text-[10px] block mb-2"
-                style={{ color: "rgba(255,255,255,0.6)" }}
-              >
+              <label className="mono-text text-[10px] block mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
                 <span style={{ color: "#00e5ff" }}>$</span> compose TRANSMISSION
               </label>
               <textarea
@@ -203,41 +226,87 @@ export default function ContactSection() {
             <div className="flex items-center gap-4">
               <button
                 type="submit"
-                className="flex-1 py-4 rounded-md font-mono text-sm tracking-wider transition-all duration-300"
+                disabled={loading}
+                className="flex-1 py-4 rounded-md font-mono text-sm tracking-wider transition-all duration-300 cursor-pointer"
                 style={{
-                  background:
-                    "linear-gradient(90deg, rgba(0,229,255,0.2), rgba(168,85,247,0.3))",
+                  background: "linear-gradient(90deg, rgba(0,229,255,0.2), rgba(168,85,247,0.3))",
                   border: "1px solid rgba(0,229,255,0.4)",
                   color: "#00e5ff",
+                  opacity: loading ? 0.6 : 1,
                 }}
               >
-                $ TRANSMIT --force
+                {loading ? ">> TRANSMITTING..." : "$ TRANSMIT --force"}
               </button>
 
-              <div
-                className="mono-text text-[9px]"
-                style={{ color: "rgba(0,229,255,0.5)" }}
-              >
+              <div className="mono-text text-[9px]" style={{ color: "rgba(0,229,255,0.5)" }}>
                 <div>LATENCY: 12ms</div>
                 <div>UPLINK: ACTIVE</div>
               </div>
             </div>
+
+            {/* STATUS */}
+            {status && (
+              <div className="mono-text text-[10px]" style={{ color: "#00e5ff" }}>
+                {status}
+              </div>
+            )}
+
+            {/* LOADING SPINNER */}
+            {loading && (
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                <span className="mono-text text-[10px]" style={{ color: "#00e5ff" }}>
+                  encrypting & sending...
+                </span>
+              </div>
+            )}
           </form>
 
           {/* Bottom Status */}
-          <div
-            className="px-6 py-3 flex justify-between text-[9px]"
-            style={{
-              borderTop: "1px solid rgba(0,229,255,0.08)",
-              color: "rgba(255,255,255,0.3)",
-            }}
-          >
+          <div className="px-6 py-3 flex justify-between text-[9px]" style={{
+            borderTop: "1px solid rgba(0,229,255,0.08)",
+            color: "rgba(255,255,255,0.3)",
+          }}>
             <span>CONNECTION: ENCRYPTED</span>
             <span>PACKETS: 0/0</span>
             <span>█████████░ 90%</span>
           </div>
         </div>
       </div>
+
+      {showPopup && (
+        <div className="fixed bottom-6 right-6 z-50">
+          <div
+            className="px-6 py-4 rounded-md font-mono text-sm flex items-center gap-3 animate-slideIn glitch"
+            style={{
+              background: "rgba(8,14,28,0.95)",
+              border:
+                popupType === "success"
+                  ? "1px solid rgba(0,229,255,0.4)"
+                  : "1px solid rgba(255,80,80,0.4)",
+              color: popupType === "success" ? "#00e5ff" : "#ff4d4d",
+              boxShadow:
+                popupType === "success"
+                  ? "0 0 20px rgba(0,229,255,0.3)"
+                  : "0 0 20px rgba(255,80,80,0.3)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            {popupType === "success" ? (
+              <>
+                <Rocket size={18} />
+                <span>SIGNAL TRANSMITTED</span>
+              </>
+            ) : (
+              <>
+                <span>⚠</span>
+                <span>TRANSMISSION FAILED</span>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
     </section>
   );
 }

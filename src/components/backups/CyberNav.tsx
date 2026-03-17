@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 const navItems = [
@@ -19,30 +19,10 @@ const CyberNav = () => {
     damping: 30,
   });
 
-  const isClickScrolling = useRef(false);
-  const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   useEffect(() => {
     const handleScroll = () => {
       const heroHeight = window.innerHeight;
       setScrolled(window.scrollY > heroHeight * 0.1);
-
-      if (!isClickScrolling.current) {
-        const sections = ["hero", "about", "skills", "projects", "contact"];
-        const middle = window.innerHeight / 2;
-
-        for (const id of sections) {
-          const el = document.getElementById(id);
-          if (el) {
-            const rect = el.getBoundingClientRect();
-
-            if (rect.top <= middle && rect.bottom >= middle) {
-              setActive(id.toUpperCase());
-              break;
-            }
-          }
-        }
-      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -51,31 +31,12 @@ const CyberNav = () => {
 
   const handleClick = (label: string, href: string) => {
     setActive(label);
-    isClickScrolling.current = true;
-
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
-
-    // detect scroll end properly
-    const onScroll = () => {
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
-
-      scrollTimeout.current = setTimeout(() => {
-        isClickScrolling.current = false;
-        window.removeEventListener("scroll", onScroll);
-      }, 120);
-    };
-
-    window.addEventListener("scroll", onScroll);
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
-      {/* 🔥 Progress Line */}
+      {/* 🔥 Neon Progress Line */}
       <motion.div
         style={{ scaleX }}
         className="fixed top-0 left-0 right-0 h-0.5 bg-cyan-400 origin-left z-50"
@@ -91,7 +52,7 @@ const CyberNav = () => {
       >
         <div className="container mx-auto flex items-center justify-between px-6">
           <div className="neon-text font-bold tracking-widest text-lg">
-            {"<SAIKAT/>"}
+            {"<DEV/>"}
           </div>
 
           <div className="hidden md:flex items-center gap-3">
@@ -99,7 +60,7 @@ const CyberNav = () => {
               <button
                 key={item.label}
                 onClick={() => handleClick(item.label, item.href)}
-                className={`relative px-4 py-2 text-xs tracking-wider transition-all duration-300 cursor-pointer ${
+                className={`relative px-4 py-2 text-xs tracking-wider transition-all duration-300 ${
                   active === item.label
                     ? "text-cyan-400"
                     : "text-gray-400 hover:text-cyan-300"
@@ -120,7 +81,7 @@ const CyberNav = () => {
             ))}
           </div>
 
-          <button onClick={() => window.open("/Saikat_updatedResume.pdf", "_blank")} className=" cursor-pointer px-5 py-2 rounded-md border border-cyan-400/40 text-cyan-400 text-xs tracking-wider hover:bg-cyan-400/10 transition">
+          <button className="px-5 py-2 rounded-md border border-cyan-400/40 text-cyan-400 text-xs tracking-wider hover:bg-cyan-400/10 transition">
             RESUME
           </button>
         </div>

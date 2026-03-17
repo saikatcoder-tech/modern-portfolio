@@ -1,45 +1,56 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
+import { Rocket, Github } from "lucide-react";
 
 import type { MouseEvent } from "react";
 
-import projectQuantum from "../assets/project-quantum.jpg";
-import projectCommerce from "../assets/project-commerce.jpg";
-import projectEngine from "../assets/project-engine.jpg";
-import projectSynapse from "../assets/project-synapse.jpg";
+import projectQuantum from "../assets/project-ocula.png";
+import projectCommerce from "../assets/project-emailgenerator.png";
+import projectEngine from "../assets/project-modernPortfolio.png";
+import projectSynapse from "../assets/project-calculator.png";
 
 const projects = [
   {
     id: 1,
-    title: "Quantum Dashboard",
-    desc: "Real-time analytics platform with AI-powered insights and predictive modeling.",
-    tech: ["React", "Python", "TensorFlow"],
+    title: "AI System Architecture Generator",
+    desc: "Generates complete system architecture from simple ideas",
+    tech: ["React", "Node.js", "Express.js", "MongoDB"],
     color: "190 100% 50%",
     image: projectQuantum,
+    link: "https://aiocula.vercel.app",
+    github: "https://github.com/saikatcoder-tech/ocula"
+    
   },
   {
     id: 2,
-    title: "Neural Commerce",
-    desc: "Next-gen e-commerce engine with personalized shopping experiences.",
-    tech: ["Next.js", "Node.js", "PostgreSQL"],
+    title: "Neon Calculator",
+    desc: "Neon cyberpunk calculator with sleek interactive UI",
+    tech: ["HTML", "CSS", "Javascript"],
     color: "280 100% 60%",
-    image: projectCommerce,
+    image: projectSynapse,
+    link: "https://ivaan-calculator.vercel.app/",
+    github: "https://github.com/saikatcoder-tech/CodeAlpha_Calculator"
   },
   {
     id: 3,
-    title: "Void Engine",
-    desc: "WebGL-based 3D game engine with physics simulation and shader pipelines.",
-    tech: ["Three.js", "WebGL", "WASM"],
+    title: "Portfolio Website",
+    desc: "Modern cyberpunk portfolio with immersive space UI",
+    tech: ["React.js", "Tailwind CSS", "Typescript", "Three.js"],
     color: "320 100% 55%",
     image: projectEngine,
+    link: "https://ivaanportfolio.vercel.app/",
+    github: "https://github.com/saikatcoder-tech/modern-portfolio"
+
   },
   {
     id: 4,
-    title: "Synapse OS",
-    desc: "Desktop-like web operating system with multi-window management.",
-    tech: ["TypeScript", "React", "WebRTC"],
+    title: "AI Email Generator",
+    desc: "AI-powered tool for instant professional email writing.",
+    tech: ["HTML", "CSS", "JS"],
     color: "220 100% 60%",
-    image: projectSynapse,
+    image: projectCommerce,
+    link: "https://aiemailcraft.vercel.app/",
+    github: "https://github.com/saikatcoder-tech/AI-Email-Writer"
   },
 ];
 
@@ -155,6 +166,58 @@ const ProjectsSection = () => {
                         boxShadow: `0 0 8px hsl(${project.color})`,
                       }}
                     />
+
+                  
+                    <motion.div
+  initial={false}
+  animate={{
+    opacity: activeId === project.id ? 1 : 0,
+    y: activeId === project.id ? 0 : 20,
+  }}
+  transition={{ duration: 0.25, ease: "easeOut" }}
+  className="absolute inset-0 flex items-center justify-center gap-6 pointer-events-none"
+>
+  {/* 🚀 LIVE */}
+  <a
+    href={project.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="pointer-events-auto group relative flex items-center gap-2 px-4 py-2
+    text-xs tracking-wide uppercase text-cyan-300
+    border border-cyan-400/30 rounded-full
+    bg-[#0b1224]/80 backdrop-blur-md
+    transition-all duration-300 hover:scale-105 hover:border-cyan-400"
+  >
+    <Rocket size={14} />
+    <span>Launch</span>
+
+    {/* glow */}
+    <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 
+    transition duration-300 blur-md bg-cyan-400/20" />
+  </a>
+
+  {/* 🧠 CODE */}
+  <a
+    href={project.github}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="pointer-events-auto group relative flex items-center gap-2 px-4 py-2
+    text-xs tracking-wide uppercase text-purple-300
+    border border-purple-400/30 rounded-full
+    bg-[#0b1224]/80 backdrop-blur-md
+    transition-all duration-300 hover:scale-105 hover:border-purple-400"
+  >
+    <Github size={14} />
+    <span>Source</span>
+
+    {/* glow */}
+    <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 
+    transition duration-300 blur-md bg-purple-400/20" />
+  </a>
+</motion.div>
+
+
+
                   </div>
 
                   {/* CONTENT */}

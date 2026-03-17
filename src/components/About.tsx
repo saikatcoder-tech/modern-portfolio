@@ -4,9 +4,9 @@ import GlassCard from "./GlassCard";
 
 const About = () => {
   const stats = [
-    { label: "Years Experience", value: "5+", icon: Zap },
-    { label: "Projects Shipped", value: "30+", icon: Layers },
-    { label: "Lines of Code", value: "500K+", icon: Code },
+    { label: "Internship", value: "1", icon: Zap },
+    { label: "Projects Built", value: "3+", icon: Layers },
+    { label: "Lines of Code", value: "50K+", icon: Code },
   ];
 
   return (
@@ -27,7 +27,7 @@ const About = () => {
             </div>
 
             <h2
-              className="font-display text-4xl md:text-5xl font-bold mb-8"
+              className="font-display text-4xl md:text-5xl font-bold mb-6 leading-[1.4]"
               style={{
                 background: "linear-gradient(90deg, #38bdf8 0%, #8b5cf6 100%)",
                 WebkitBackgroundClip: "text",
@@ -39,14 +39,10 @@ const About = () => {
 
             <div className="space-y-6 text-gray-400 leading-relaxed text-lg">
               <p>
-                I'm a full-stack developer who thrives at the bleeding edge of web technology.
-                With 5+ years of experience, I specialize in creating immersive digital
-                experiences that push boundaries.
+                I’m a full-stack developer focused on building modern web applications and real-world SaaS products. I enjoy turning ideas into functional, scalable systems using clean code and practical architecture
               </p>
               <p>
-                From interactive 3D visualizations to AI-powered applications,
-                I bring ideas to life with clean code and pixel-perfect execution.
-                Every project is an opportunity to innovate.
+                I’ve worked with the MERN stack and have hands-on experience building secure APIs, integrating payments, and developing AI-powered features. Recently, I built an AI SaaS platform that generates complete system architecture from simple ideas.
               </p>
             </div>
 
@@ -103,7 +99,7 @@ const About = () => {
                 </div>
 
                 <div className="text-white mb-6">
-                  → Full-Stack Developer & Creative Technologist
+                  → Full-Stack Developer & Modern UI Designer
                 </div>
 
                 <div className="text-gray-400">
@@ -117,23 +113,32 @@ const About = () => {
                 <div className="pl-6">
                   <span className="text-cyan-400">"frontend"</span>:{" "}
                   <span className="text-purple-400">
-                    "React, Three.js, GSAP"
+                    "React, Three.js, Next.js, Tailwind CSS"
                   </span>,
                 </div>
 
                 <div className="pl-6">
                   <span className="text-cyan-400">"backend"</span>:{" "}
                   <span className="text-purple-400">
-                    "Node, Python, Rust"
+                    "Node.js, Express.js"
                   </span>,
                 </div>
 
                 <div className="pl-6">
-                  <span className="text-cyan-400">"passion"</span>:{" "}
+                  <span className="text-cyan-400">"database"</span>:{" "}
                   <span className="text-purple-400">
-                    "Making the impossible real"
+                    "Mongo DB, SQL"
+                  </span>,
+                </div>
+
+                <div className="pl-6">
+                  <span className="text-cyan-400">"tools"</span>:{" "}
+                  <span className="text-purple-400">
+                    "Git, Vercel, Render"
                   </span>
                 </div>
+
+                
 
                 <div className="text-white">
                   {"}"}

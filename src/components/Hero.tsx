@@ -1,8 +1,13 @@
 import { motion } from "framer-motion";
 
 export function Hero() {
+
+  const handleClick = (href: string) => {
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  };
+  
   return (
-    <section className="relative flex flex-col items-center justify-center px-6 overflow-hidden" style={{ minHeight: '100svh' }}>
+    <section id="hero" className="relative flex flex-col items-center justify-center px-6 overflow-hidden" style={{ minHeight: '100svh' }}>
 
       {/* Top Badge */}
       <motion.div
@@ -31,7 +36,7 @@ export function Hero() {
               "0 0 20px rgba(0,255,255,0.25)"
           }}
         >
-          ENTER THE
+          FULL STACK
         </div>
 
         <div
@@ -45,7 +50,7 @@ export function Hero() {
               "0 0 25px rgba(255,0,255,0.4)"
           }}
         >
-          NEURAL NET
+          DEVELOPER
         </div>
       </motion.h1>
 
@@ -56,8 +61,9 @@ export function Hero() {
         transition={{ delay: 0.6, duration: 1 }}
         className="mt-8 text-gray-400 text-center max-w-2xl text-lg md:text-xl"
       >
-        Fullstack Architect & Creative Developer. Bridging the gap between
-        robust backend systems and highly immersive 3D frontend experiences.
+        Building SaaS products, Integrating AI & Writing clean API's<br />
+        Turning ideas into secure & scalable applications with Modern UI.
+        
       </motion.p>
 
       {/* Buttons */}
@@ -67,22 +73,22 @@ export function Hero() {
         transition={{ delay: 0.8, duration: 1 }}
         className="mt-12 flex flex-col sm:flex-row gap-6"
       >
-        <button
-          className="px-8 py-4 border border-cyan-400/50 text-cyan-300 font-semibold tracking-wider rounded-md bg-cyan-400/5 backdrop-blur-md transition-all duration-300 hover:bg-cyan-400/10 hover:shadow-[0_0_25px_rgba(0,255,255,0.3)]"
+        <button onClick={() => handleClick("#projects")}
+          className="cursor-pointer px-8 py-4 border border-cyan-400/50 text-cyan-300 font-semibold tracking-wider rounded-md bg-cyan-400/5 backdrop-blur-md transition-all duration-300 hover:bg-cyan-400/10 hover:shadow-[0_0_25px_rgba(0,255,255,0.3)]"
         >
-          ACCESS ARCHIVES
+          LOAD PROJECTS 
         </button>
 
-        <button
-          className="px-8 py-4 border border-gray-500/40 text-white font-semibold tracking-wider rounded-md transition-all duration-300 hover:border-pink-400 hover:shadow-[0_0_25px_rgba(255,0,255,0.3)]"
+        <button onClick={() => handleClick("#contact")}
+          className="cursor-pointer px-8 py-4 border border-gray-500/40 text-white font-semibold tracking-wider rounded-md transition-all duration-300 hover:border-pink-400 hover:shadow-[0_0_25px_rgba(255,0,255,0.3)]"
         >
-          ESTABLISH LINK
+          INIT CONTACT
         </button>
       </motion.div>
 
       {/* Left System Text */}
       <div className="absolute bottom-10 left-10 hidden md:block text-xs text-cyan-400/60 font-mono space-y-1">
-        <div>COORD: 45.928.11</div>
+        <div>COORD: KOLKATA.IN</div>
         <div>STATUS: ONLINE</div>
         <div>UPLINK: SECURE</div>
       </div>
